@@ -2,9 +2,9 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from tests.utils.locators import Locators
 
 class LoginPage:
-    def __init__(self, driver: WebDriver, locator: Locators):
+    def __init__(self, driver: WebDriver):
         self.web = driver
-        self.get = locator
+        self.get = Locators(driver)
         self.usernameInput = lambda: self.get.byDataTest('username')
         self.passwordInput = lambda: self.get.byDataTest('password')
         self.submitButton = lambda: self.get.byDataTest('login-button')
