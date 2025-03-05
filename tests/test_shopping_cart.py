@@ -28,3 +28,7 @@ class TestShoppingCart:
 
         assert 'cart.html' in web.current_url, "No se redirigió a la página del carrito."
         assert product_name == shopping_cart.get_first_product_name_in_cart(), "El producto en el carrito no coincide con el agregado."
+
+if __name__ == "__main__":
+    # * Ejecución de las pruebas utilizando pytest
+    pytest.main()
