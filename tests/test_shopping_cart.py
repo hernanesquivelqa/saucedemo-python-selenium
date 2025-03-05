@@ -15,6 +15,13 @@ class TestShoppingCart:
         assert driver.current_url == f"{BASE_URL}/inventory.html", "No se redirigió correctamente a la página de inventario."
         assert shopping_cart_button.is_displayed(),'No esta el botón de shopping cart presente en la UI'
         yield driver  
+        
+        hamburger_menu_driver = driver.find_element(By.ID, 'react-burger-menu-btn')
+        hamburger_menu_driver.click()
+        log_out_button = driver.find_element(By.CSS_SELECTOR,'[data-test="logout-sidebar-link"]')
+        driver.implicitly_wait(10)
+        log_out_button.click()
+
         driver.quit()
 
     def test_01_assert_browser_title(self, web: WebDriver):

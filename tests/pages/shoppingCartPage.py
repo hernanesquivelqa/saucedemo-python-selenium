@@ -10,6 +10,7 @@ class ShoppingCartPage:
     # -----------------------------    
         self.cartItems = self.driver.find_element(By.CSS_SELECTOR, '.inventory_item')
         self.shopping_cart_link = self.driver.find_element(By.CSS_SELECTOR, '[data-test="shopping-cart-link"]')
+        self.burger_menu_button = self.driver.find_element(By.ID, 'react-burger-menu-btn')
     # -----------------------------
     # List of elements
     # -----------------------------    
