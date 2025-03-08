@@ -1,28 +1,42 @@
 from tests.testbase import *
 from config import BASE_URL, USERNAME_SAUCEDEMO, PASSWORD_SAUCEDEMO
+
+
 class TestShoppingCart:
-    
+
     @pytest.fixture
     def web(self):
-      
-        driver = webdriver.Chrome()
-        driver.get(BASE_URL)
-        login_page = LoginPage(driver)
-        login_page.enterUsername(USERNAME_SAUCEDEMO)
-        login_page.enterPassword(PASSWORD_SAUCEDEMO)
-        login_page.clickSubmit()
-        shopping_cart_button = driver.find_element(By.ID,'shopping_cart_container')
-        assert driver.current_url == f"{BASE_URL}/inventory.html", "No se redirigió correctamente a la página de inventario."
-        assert shopping_cart_button.is_displayed(),'No esta el botón de shopping cart presente en la UI'
-        yield driver  
-        
-        hamburger_menu_driver = driver.find_element(By.ID, 'react-burger-menu-btn')
+        self.driver = webdriver.Chrome()
+        self.driver.get(BASE_URL)
+        login_page = LoginPage(self.driver)
+        login_page.submitLoginForm(USERNAME_SAUCEDEMO, PASSWORD_SAUCEDEMO)
+
+        self.shopping_cart_page = ShoppingCartPage(self.driver)
+        self.shopping_cart_button = self.shopping_cart_page.shopping_cart_button
+
+        assert (
+            self.driver.current_url == f"{BASE_URL}/inventory.html"
+        ), "The redirection to the inventory page was not successful."
+        assert (
+            self.shopping_cart_button.is_displayed()
+        ), "The shopping cart button is not present in the UI."
+
+        yield self.driver
+
+        wait = WebDriverWait(self.driver, 10)
+        hamburger_menu_driver = wait.until(
+            EC.element_to_be_clickable(
+                self.shopping_cart_page.burger_menu_button_locator
+            )
+        )
+
         hamburger_menu_driver.click()
-        log_out_button = driver.find_element(By.CSS_SELECTOR,'[data-test="logout-sidebar-link"]')
-        driver.implicitly_wait(10)
+        log_out_button = wait.until(
+            EC.element_to_be_clickable((self.shopping_cart_page.log_out_button))
+        )
         log_out_button.click()
 
-        driver.quit()
+        self.driver.quit()
 
     def test_01_assert_browser_title(self, web: WebDriver):
         assert "Swag Labs" in web.title
@@ -33,8 +47,11 @@ class TestShoppingCart:
         product_name = shopping_cart.add_first_product_to_cart()
         shopping_cart.go_to_cart()
 
-        assert 'cart.html' in web.current_url, "No se redirigió a la página del carrito."
-        assert product_name == shopping_cart.get_first_product_name_in_cart(), "El producto en el carrito no coincide con el agregado."
+        assert "cart.html" in web.current_url, "Did not redirect to the cart page."
+        assert (
+            product_name == shopping_cart.get_first_product_name_in_cart()
+        ), "The product in the cart does not match the added one."
+
 
 if __name__ == "__main__":
     # * Ejecución de las pruebas utilizando pytest
