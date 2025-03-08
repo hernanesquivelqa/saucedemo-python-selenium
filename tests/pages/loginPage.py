@@ -10,15 +10,22 @@ class LoginPage:
         self.usernameInput = lambda: self.get.byDataTest("username")
         self.passwordInput = lambda: self.get.byDataTest("password")
         self.submitButton = lambda: self.get.byDataTest("login-button")
-        self.look_out_user_message_error_locator = (
+        self.message_error_locator = (
             By.CLASS_NAME,
             "error-message-container",
         )
+        self.problem_user_message_error_locator = ()
+        
+        
         #
         # ERROR MESSAGES
         #
         self.user_look_out_error_message = (
             "Epic sadface: Sorry, this user has been locked out."
+        )
+        
+        self.invalid_username_error_message = (
+            "Epic sadface: Username and password do not match any user in this service"
         )
 
     def enterUsername(self, inputValue: str):
@@ -35,5 +42,7 @@ class LoginPage:
         self.enterPassword(password)
         self.clickSubmit()
 
-    def error_message_look_out(self):
-        return self.web.find_element(*self.look_out_user_message_error_locator).text
+    def error_message(self):
+        return self.web.find_element(*self.message_error_locator).text
+    
+  

@@ -11,13 +11,17 @@ venv/
 .venv/
 pip-log.txt
 pip-delete-this-directory.txt
-
+../tests/api/requestLibrary
 # Configuración de editores/IDE
 .vscode/
+
 .idea/
 *.swp
 *.swo
 
+
+
+notes
 # Archivos de Selenium y WebDriver
 chromedriver.log
 geckodriver.log
