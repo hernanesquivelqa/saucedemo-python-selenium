@@ -1,6 +1,11 @@
 from tests.testbase import *
-from config import BASE_URL, USERNAME_SAUCEDEMO, PASSWORD_SAUCEDEMO, LOCKED_OUT_USER, INVALID_USERNAME
-
+from config import (
+    BASE_URL,
+    USERNAME_SAUCEDEMO,
+    PASSWORD_SAUCEDEMO,
+    LOCKED_OUT_USER,
+    INVALID_USERNAME,
+)
 
 
 class TestLogin:
@@ -31,14 +36,13 @@ class TestLogin:
             error_message == expected_error_message
         ), f"Expected: '{expected_error_message}', but got: '{error_message}'"
         assert BASE_URL == web.current_url[:-1]
-        
-    def test_invalid_username(self,web:WebDriver):
+
+    def test_invalid_username(self, web: WebDriver):
         login_page = LoginPage(web)
         login_page.submitLoginForm(INVALID_USERNAME, PASSWORD_SAUCEDEMO)
         error_message = login_page.error_message()
-        expected_error_message =login_page.invalid_username_error_message
+        expected_error_message = login_page.invalid_username_error_message
         assert (
             error_message == expected_error_message
         ), f"Expected: '{expected_error_message}', but got: '{error_message}'"
         assert BASE_URL == web.current_url[:-1]
-        

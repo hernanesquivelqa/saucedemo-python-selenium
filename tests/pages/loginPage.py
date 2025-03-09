@@ -15,15 +15,14 @@ class LoginPage:
             "error-message-container",
         )
         self.problem_user_message_error_locator = ()
-        
-        
+
         #
         # ERROR MESSAGES
         #
         self.user_look_out_error_message = (
             "Epic sadface: Sorry, this user has been locked out."
         )
-        
+
         self.invalid_username_error_message = (
             "Epic sadface: Username and password do not match any user in this service"
         )
@@ -44,5 +43,3 @@ class LoginPage:
 
     def error_message(self):
         return self.web.find_element(*self.message_error_locator).text
-    
-  
