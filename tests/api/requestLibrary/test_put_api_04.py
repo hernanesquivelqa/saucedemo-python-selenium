@@ -6,8 +6,6 @@ update_data = {
     "userId": 1,
 }
 
-response = requests.put(
-    "https://jsonplaceholder.typicode.com/posts/1", json=update_data
-)
+response = requests.put("https://jsonplaceholder.typicode.com/posts/1", json=update_data)
 print(response.status_code)
 print(response.json())

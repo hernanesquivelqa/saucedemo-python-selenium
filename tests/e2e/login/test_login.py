@@ -32,9 +32,7 @@ class TestLogin:
         login_page.submitLoginForm(LOCKED_OUT_USER, PASSWORD_SAUCEDEMO)
         error_message = login_page.error_message()
         expected_error_message = login_page.user_look_out_error_message
-        assert (
-            error_message == expected_error_message
-        ), f"Expected: '{expected_error_message}', but got: '{error_message}'"
+        assert error_message == expected_error_message, f"Expected: '{expected_error_message}', but got: '{error_message}'"
         assert BASE_URL == web.current_url[:-1]
 
     def test_invalid_username(self, web: WebDriver):
@@ -42,7 +40,5 @@ class TestLogin:
         login_page.submitLoginForm(INVALID_USERNAME, PASSWORD_SAUCEDEMO)
         error_message = login_page.error_message()
         expected_error_message = login_page.invalid_username_error_message
-        assert (
-            error_message == expected_error_message
-        ), f"Expected: '{expected_error_message}', but got: '{error_message}'"
+        assert error_message == expected_error_message, f"Expected: '{expected_error_message}', but got: '{error_message}'"
         assert BASE_URL == web.current_url[:-1]

@@ -23,9 +23,7 @@ class Api:
         self.isbn_count = None
 
         def save_response_json(self, data: object, file_name: str):
-            save_json_to_file(
-                json_data=data, dir_path="integration/res", file_name=file_name
-            )
+            save_json_to_file(json_data=data, dir_path="integration/res", file_name=file_name)
 
     def create_new_user(self, username: str, password: str):
         url = self.base_url + self.endpoints["create_user"]

@@ -58,17 +58,6 @@ class TestShoppingCart:
         self.driver.find_element(By.CSS_SELECTOR, '[data-test="back-to-products"]').click()
         assert "inventory.html" in web.current_url, 'Did not redirect to the cart page'
   
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
 if __name__ == "__main__":
     # * Ejecución de las pruebas utilizando pytest
     pytest.main()

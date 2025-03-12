@@ -1,15 +1,16 @@
 from selenium.webdriver.remote.webdriver import WebDriver
 from tests.utils.locators import Locators
 from tests.testbase import *
+from selenium.webdriver.common.by import By
 
 
 class LoginPage:
     def __init__(self, driver: WebDriver):
         self.web = driver
         self.get = Locators(driver)
-        self.usernameInput = lambda: self.get.byDataTest("username")
-        self.passwordInput = lambda: self.get.byDataTest("password")
-        self.submitButton = lambda: self.get.byDataTest("login-button")
+        self.username_input = lambda: self.get.by_data_test("username")
+        self.password_input = lambda: self.get.by_data_test("password")
+        self.submit_button = lambda: self.get.by_data_test("login-button")
         self.message_error_locator = (
             By.CLASS_NAME,
             "error-message-container",
@@ -19,27 +20,22 @@ class LoginPage:
         #
         # ERROR MESSAGES
         #
-        self.user_look_out_error_message = (
-            "Epic sadface: Sorry, this user has been locked out."
-        )
+        self.user_lockout_error_message = "Epic sadface: Sorry, this user has been locked out."
+        self.invalid_username_error_message = "Epic sadface: Username and password do not match any user in this service"
 
-        self.invalid_username_error_message = (
-            "Epic sadface: Username and password do not match any user in this service"
-        )
+    def enter_username(self, input_value: str):
+        return self.username_input().send_keys(input_value)
 
-    def enterUsername(self, inputValue: str):
-        return self.usernameInput().send_keys(inputValue)
+    def enter_password(self, input_value: str):
+        return self.password_input().send_keys(input_value)
 
-    def enterPassword(self, inputValue: str):
-        return self.passwordInput().send_keys(inputValue)
+    def click_submit(self):
+        return self.submit_button().click()
 
-    def clickSubmit(self):
-        return self.submitButton().click()
-
-    def submitLoginForm(self, username, password):
-        self.enterUsername(username)
-        self.enterPassword(password)
-        self.clickSubmit()
+    def submit_login_form(self, username, password):
+        self.enter_username(username)
+        self.enter_password(password)
+        self.click_submit()
 
     def error_message(self):
         return self.web.find_element(*self.message_error_locator).text
