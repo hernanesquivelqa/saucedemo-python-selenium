@@ -4,13 +4,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-class ShoppingCartPage:
+class ShoppingCartInventoryPage:
     def __init__(self, driver: WebDriver):
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 10)
         # -----------------------------
         # Elements already located
         # -----------------------------
+        self.pathUrl = "/inventory.html"
         self.cart_items = self.driver.find_element(By.CSS_SELECTOR, ".inventory_item")
         self.shopping_cart_link = self.driver.find_element(By.CSS_SELECTOR, '[data-test="shopping-cart-link"]')
         self.burger_menu_button = self.driver.find_element(By.ID, "react-burger-menu-btn")
@@ -36,6 +37,7 @@ class ShoppingCartPage:
             By.CSS_SELECTOR,
             '[data-test="inventory-item-name"]',
         )
+        self.error_messages = {"not_match": "The product in the cart does not match the added one."}
 
     def add_first_product_to_cart(self):
         """Agrega el primer producto disponible al carrito."""
@@ -66,5 +68,3 @@ class ShoppingCartPage:
     def log_out_button_click(self):
         log_out = self.wait.until(EC.element_to_be_clickable(self.log_out_button))
         log_out.click()
-    
-    
