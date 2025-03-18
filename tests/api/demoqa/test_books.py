@@ -25,7 +25,7 @@ class TestBookApi:
         assert response.status_code == 200
         assert json["books"] != None
 
-    pytest.mark.skip
+    
 
     def test_add_list_to_books(self):
         api = Api()
@@ -36,7 +36,7 @@ class TestBookApi:
         json, response = api.add_list_to_books(ids=data)
         assert response.status_code == 201
 
-    pytest.mark.skip
+    
 
     def test_delete_book(self):
         api = Api()

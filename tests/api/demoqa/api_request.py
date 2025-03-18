@@ -1,6 +1,7 @@
 import json
 import random
 import requests
+from tests.api.file import save_json_to_file
 from config import USERNAME_DEMOQA, PASSWORD_DEMOQA, USER_ID_DEMOQA, BEARER_DEMOQA
 
 
@@ -22,8 +23,8 @@ class Api:
         self.access_token = None
         self.isbn_count = None
 
-        def save_response_json(self, data: object, file_name: str):
-            save_json_to_file(json_data=data, dir_path="integration/res", file_name=file_name)
+    def save_response_json(self, data: object, file_name: str):
+        save_json_to_file(json_data=data, dir_path="integration/res", file_name=file_name)
 
     def create_new_user(self, username: str, password: str):
         url = self.base_url + self.endpoints["create_user"]
@@ -78,4 +79,5 @@ class Api:
         response = self.api.post(url, json=request_data, headers=auth)
         bodyText = response.text
         body: object = json.loads(bodyText)
+        self.save_response_json(data=body, file_name='add_book_to_collection.json')
         return body, response

@@ -14,7 +14,7 @@ pip-delete-this-directory.txt
 ../tests/api/requestLibrary
 # Configuración de editores/IDE
 .vscode/
-
+tests/integration/res
 .idea/
 *.swp
 *.swo
