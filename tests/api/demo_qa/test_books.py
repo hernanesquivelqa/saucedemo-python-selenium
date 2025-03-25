@@ -1,6 +1,6 @@
 import pytest
 from config import random_num
-from tests.api.demoqa.api_request import Api
+from tests.api.demo_qa.api_request import Api
 
 
 class TestBookApi:
@@ -24,8 +24,8 @@ class TestBookApi:
 
         assert response.status_code == 200
         assert json["books"] != None
+        
 
-    
 
     def test_add_list_to_books(self):
         api = Api()

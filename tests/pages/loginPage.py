@@ -7,10 +7,10 @@ from selenium.webdriver.common.by import By
 class LoginPage:
     def __init__(self, driver: WebDriver):
         self.web = driver
-        self.get = Locators(driver)
-        self.username_input = lambda: self.get.by_data_test("username")
-        self.password_input = lambda: self.get.by_data_test("password")
-        self.submit_button = lambda: self.get.by_data_test("login-button")
+        self.locators  = Locators(driver)
+        self.username_input = lambda: self.locators.by_data_test("username")
+        self.password_input = lambda: self.locators.by_data_test("password")
+        self.submit_button = lambda: self.locators.by_data_test("login-button")
         self.message_error_locator = (
             By.CLASS_NAME,
             "error-message-container",
