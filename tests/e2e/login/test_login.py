@@ -20,11 +20,8 @@ class TestLogin:
         login_page = LoginPage(web)
         login_page.submit_login_form(USERNAME_SAUCEDEMO, PASSWORD_SAUCEDEMO)
         shopping_cart_page = ShoppingCartInventoryPage(web)
-        burger_menu = shopping_cart_page.burger_menu_button
-        burger_menu.click()
-        log_out_button = shopping_cart_page.log_out
-        web.implicitly_wait(10)
-        log_out_button.click()
+        shopping_cart_page.click_burger_button()
+        shopping_cart_page.log_out_button_click()
         assert BASE_URL == web.current_url[:-1]
 
     def test_locked_out_user_cannot_login(self, web: WebDriver):

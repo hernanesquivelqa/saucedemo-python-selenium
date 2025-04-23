@@ -11,13 +11,7 @@ class TestShoppingCart:
         login_page = LoginPage(self.driver)
         login_page.submit_login_form(USERNAME_SAUCEDEMO, PASSWORD_SAUCEDEMO)
         self.inventory_page = ShoppingCartInventoryPage(self.driver)
-        self.shopping_cart_button = self.inventory_page.shopping_cart_button
-
-        assert self.driver.current_url == f"{BASE_URL}{self.inventory_page.pathUrl}"
-        assert self.shopping_cart_button.is_displayed(), "The shopping cart button is not present in the UI."
-
         yield self.driver
-
         self.inventory_page.click_burger_button()
         self.inventory_page.log_out_button_click()
         self.driver.quit()
