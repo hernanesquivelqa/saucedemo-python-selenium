@@ -39,3 +39,7 @@ class TestLogin:
         expected_error_message = login_page.invalid_username_error_message
         assert error_message == expected_error_message, f"Expected: '{expected_error_message}', but got: '{error_message}'"
         assert BASE_URL == web.current_url[:-1]
+
+if __name__ == "__main__":
+    # * Ejecución de las pruebas utilizando pytest
+    pytest.main()

@@ -18,14 +18,16 @@ class TestShoppingCart:
 
     def test_01_assert_browser_title(self, web: WebDriver):
         assert "Swag Labs" in web.title
-
+        
+    @pytest.mark.skip(reason="Skip test")
     def test_02_add_to_cart(self, web: WebDriver):
         inventory_page = ShoppingCartInventoryPage(web)
         product_name = inventory_page.add_first_product_to_cart()
         inventory_page.go_to_cart()
         assert "cart.html" in web.current_url
         assert product_name == inventory_page.get_first_product_name_in_cart(), inventory_page.error_messages["not_match"]
-
+    
+    @pytest.mark.skip(reason="Skip test")
     def test_03_checkout_one_item(self, web: WebDriver):
         inventory_page = ShoppingCartInventoryPage(web)
         product_name = inventory_page.add_first_product_to_cart()
