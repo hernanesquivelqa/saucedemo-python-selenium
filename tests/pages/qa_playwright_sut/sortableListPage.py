@@ -2,7 +2,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from tests.utils.locators import Locators
-
+from selenium.webdriver.common.action_chains import ActionChains
 class SortableListPage:
     def __init__(self, driver):
         self.driver = driver
@@ -48,3 +48,19 @@ class SortableListPage:
     def get_element_color(self, element):
         """Obtiene el color de un elemento."""
         return element.value_of_css_property("color")
+    
+    def drag_item_to(self, source_name: str, target_index: int):
+        """
+        Drags the item with text source_name into the position target_index in the list
+        """
+        items = self.get_person_names()
+        source = next((el for el in items if el.text == source_name), None)
+        if not source:
+            raise ValueError(f"Item '{source_name}' not found on page")
+        target_items = self.get_person_names()
+        if target_index < 0 or target_index >= len(target_items):
+            raise IndexError(f"Target index {target_index} out of bounds")
+        target = target_items[target_index]
+
+        actions = ActionChains(self.driver)
+        actions.click_and_hold(source).move_to_element(target).release().perform()
